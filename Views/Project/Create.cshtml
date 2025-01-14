@@ -1,0 +1,19 @@
+﻿@model Data.Entities.ProjectEntity
+
+@{
+    ViewData["Title"] = "Create Project";
+}
+
+<h2>Create Project</h2>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div>
+        <label asp-for="Description"></label>
+        <textarea asp-for="Description" rows="3" class="form-control"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>

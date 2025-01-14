@@ -1,0 +1,127 @@
+﻿@model Data.Entities.ProjectEntity
+
+@{
+    ViewData["Title"] = Model.Name;
+    var tasks = ViewBag.Tasks as IEnumerable<Data.Entities.TaskEntity> ?? Enumerable.Empty<Data.Entities.TaskEntity>();
+    var projects = ViewBag.Projects as IEnumerable<Data.Entities.ProjectEntity> ?? Enumerable.Empty<Data.Entities.ProjectEntity>();
+}
+
+<div class="container mb-4">
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="display-4">@Model.Name</h1>
+        </div>
+        <div class="col-md-4 text-end">
+            <a asp-action="Edit" asp-controller="Project" asp-route-id="@Model.Id" class="btn btn-primary me-2">Edit Project</a>
+            <form asp-action="Delete" method="post" style="display: inline;">
+                <input type="hidden" asp-for="Id" />
+                <button type="submit" class="btn btn-danger">Delete Project</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <h1>@Model.Name</h1>
+        <p>@Model.Description</p>
+    </div>
+
+    <div class="col-md-4">
+        @await Html.PartialAsync("_ProjectListPartial", projects)
+    </div>
+</div>
+
+<a asp-action="Create" asp-controller="Task" asp-route-projectId="@Model.Id" class="btn btn-primary">Add Task</a>
+
+<table class="table table-bordered mt-4">
+    <thead>
+        <tr>
+            <th>To Do</th>
+            <th>In Progress</th>
+            <th>Done</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <!-- To Do -->
+            <td id="todo-tasks" class="drop-zone">
+                @foreach (var task in tasks.Where(t => t.Status == "To Do"))
+                {
+                    <div class="task-item card mb-2" draggable="true" data-task-id="@task.Id">
+                        <div class="card-body position-relative">
+                            <h5 class="card-title">@task.Name</h5>
+                            <p class="card-text">@task.Description</p>
+                            <a asp-action="Edit" asp-controller="Task" asp-route-id="@task.Id" class="btn btn-sm btn-primary position-absolute top-0 end-0">Edit</a>
+                        </div>
+                    </div>
+                }
+            </td>
+
+            <!-- In Progress -->
+            <td id="inprogress-tasks" class="drop-zone">
+                @foreach (var task in tasks.Where(t => t.Status == "In Progress"))
+                {
+                    <div class="task-item card mb-2" draggable="true" data-task-id="@task.Id">
+                        <div class="card-body position-relative">
+                            <h5 class="card-title">@task.Name</h5>
+                            <p class="card-text">@task.Description</p>
+                            <a asp-action="Edit" asp-controller="Task" asp-route-id="@task.Id" class="btn btn-sm btn-primary position-absolute top-0 end-0">Edit</a>
+                        </div>
+                    </div>
+                }
+            </td>
+
+            <!-- Done -->
+            <td id="done-tasks" class="drop-zone">
+                @foreach (var task in tasks.Where(t => t.Status == "Done"))
+                {
+                    <div class="task-item card mb-2" draggable="true" data-task-id="@task.Id" style="background-color: #d4edda;">
+                        <div class="card-body position-relative">
+                            <h5 class="card-title">@task.Name</h5>
+                            <p class="card-text">@task.Description</p>
+                            <a asp-action="Edit" asp-controller="Task" asp-route-id="@task.Id" class="btn btn-sm btn-primary position-absolute top-0 end-0">Edit</a>
+                        </div>
+                    </div>
+                }
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('.task-item').forEach(task => {
+            task.addEventListener('dragstart', event => {
+                event.dataTransfer.setData('task-id', event.target.getAttribute('data-task-id'));
+            });
+        });
+
+        document.querySelectorAll('.drop-zone').forEach(column => {
+            column.addEventListener('dragover', event => {
+                event.preventDefault();
+                column.style.backgroundColor = "#e3f2fd";
+            });
+
+            column.addEventListener('dragleave', () => {
+                column.style.backgroundColor = "";
+            });
+
+            column.addEventListener('drop', event => {
+                const taskId = event.dataTransfer.getData('task-id');
+                const newStatus = column.id === 'todo-tasks' ? 'To Do' :
+                    column.id === 'inprogress-tasks' ? 'In Progress' : 'Done';
+
+                fetch('/Task/UpdateStatus', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ taskId, status: newStatus }),
+                }).then(() => {
+                    location.reload();
+                });
+            });
+        });
+    </script>
+}

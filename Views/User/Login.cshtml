@@ -1,0 +1,28 @@
+﻿@model Task_Manager.Models.LoginViewModel
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h2>Login</h2>
+
+<form asp-action="Login" method="post">
+    <div>
+        <label>Email:</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div>
+        <label>Password:</label>
+        <input asp-for="Password" type="password" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Login</button>
+</form>
+
+@if (ViewBag.Error != null)
+{
+    <p style="color: red;">@ViewBag.Error</p>
+}
+
+<p>Don't have an account? <a asp-action="Register" asp-controller="User">Register here</a></p>
+
+

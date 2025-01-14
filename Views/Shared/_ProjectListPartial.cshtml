@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Data.Entities.ProjectEntity>
+
+<div class="project-list">
+    <h4>Your Projects</h4>
+    <ul class="list-group">
+        @foreach (var project in Model)
+        {
+            <li class="list-group-item @((ViewBag.CurrentProjectId == project.Id) ? "active" : "")">
+                <a asp-action="Details" asp-controller="Project" asp-route-id="@project.Id" class="text-decoration-none">
+                    @project.Name
+                </a>
+            </li>
+        }
+    </ul>
+</div>
+
+<style>
+    .project-list {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+    }
+
+        .project-list .active {
+            background-color: rgba(173, 216, 230, 0.5);
+            color: white;
+        }
+</style>

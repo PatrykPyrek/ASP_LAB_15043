@@ -1,0 +1,57 @@
+﻿@model Data.Entities.TaskEntity
+
+<h2>Edit Task</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <input type="hidden" asp-for="ProjectId" />
+    <div class="form-group">
+        <label asp-for="Name" class="form-label">Task Name</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Description" class="form-label">Description</label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label for="status">Status</label>
+        <select id="status" name="status" class="form-control">
+            @if (Model.Status == "To Do")
+            {
+                <option value="To Do" selected="selected">To Do</option>
+            }
+            else
+            {
+                <option value="To Do">To Do</option>
+            }
+            @if (Model.Status == "In Progress")
+            {
+                <option value="In Progress" selected="selected">In Progress</option>
+            }
+            else
+            {
+                <option value="In Progress">In Progress</option>
+            }
+            @if (Model.Status == "Done")
+            {
+                <option value="Done" selected="selected">Done</option>
+            }
+            else
+            {
+                <option value="Done">Done</option>
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Save</button>
+    <a asp-action="Details" asp-controller="Project" asp-route-id="@Model.ProjectId" class="btn btn-secondary mt-3">Cancel</a>
+</form>
+
+<form asp-action="Delete" asp-controller="Task" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger mt-3">Delete Task</button>
+</form>
+
