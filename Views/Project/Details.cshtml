@@ -53,6 +53,7 @@
                             <h5 class="card-title">@task.Name</h5>
                             <p class="card-text">@task.Description</p>
                             <a asp-action="Edit" asp-controller="Task" asp-route-id="@task.Id" class="btn btn-sm btn-primary position-absolute top-0 end-0">Edit</a>
+                            <a asp-action="Details" asp-controller="Subtask" asp-route-taskId="@task.Id" class="btn btn-sm btn-secondary">View Subtasks</a>
                         </div>
                     </div>
                 }
@@ -67,6 +68,7 @@
                             <h5 class="card-title">@task.Name</h5>
                             <p class="card-text">@task.Description</p>
                             <a asp-action="Edit" asp-controller="Task" asp-route-id="@task.Id" class="btn btn-sm btn-primary position-absolute top-0 end-0">Edit</a>
+                            <a asp-action="Details" asp-controller="Subtask" asp-route-taskId="@task.Id" class="btn btn-sm btn-secondary">View Subtasks</a>
                         </div>
                     </div>
                 }
@@ -81,6 +83,7 @@
                             <h5 class="card-title">@task.Name</h5>
                             <p class="card-text">@task.Description</p>
                             <a asp-action="Edit" asp-controller="Task" asp-route-id="@task.Id" class="btn btn-sm btn-primary position-absolute top-0 end-0">Edit</a>
+                            <a asp-action="Details" asp-controller="Subtask" asp-route-taskId="@task.Id" class="btn btn-sm btn-secondary">View Subtasks</a>
                         </div>
                     </div>
                 }

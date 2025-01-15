@@ -1,4 +1,4 @@
-﻿using Data.Entities;
+﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,8 +15,8 @@ namespace Data.Entities
         public string Name { get; set; }
 
         [ForeignKey("User")]
-        public int UserId { get; set; }
-        public UserEntity User { get; set; }
+        public string UserId { get; set; } 
+        public IdentityUser User { get; set; } 
 
         [MaxLength(500)]
         public string? Description { get; set; }

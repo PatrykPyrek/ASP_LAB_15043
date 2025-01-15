@@ -81,7 +81,7 @@ namespace Task_Manager.Controllers
             _context.Tasks.Add(taskEntity);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTaskEntity", new { id = taskEntity.Id }, taskEntity);
+            return CreatedAtAction("GetTaskEntity", new { taskId = taskEntity.Id }, taskEntity);
         }
 
         // DELETE: api/TasksAPI/5

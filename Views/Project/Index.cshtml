@@ -4,16 +4,26 @@
     ViewData["Title"] = "Projects";
 }
 
-<h2>Projects</h2>
+<h2>Your Projects</h2>
 
-<a asp-action="Create">Create New Project</a>
+<a href="@Url.Action("Create", "Project")" class="btn btn-primary mb-3">Create a New Project</a>
 
-<ul>
-    @foreach (var project in Model)
-    {
-        <li>
-            <a asp-action="Details" asp-route-id="@project.Id">@project.Name</a>
-        </li>
-    }
-</ul>
-
+@if (!Model.Any())
+{
+    <div class="alert alert-info">
+        You don't have any projects yet.
+    </div>
+}
+else
+{
+    <div class="project-list">
+        <ul class="list-group">
+            @foreach (var project in Model)
+            {
+                <li class="list-group-item">
+                    <a asp-action="Details" asp-route-id="@project.Id" class="project-link">@project.Name</a>
+                </li>
+            }
+        </ul>
+    </div>
+}

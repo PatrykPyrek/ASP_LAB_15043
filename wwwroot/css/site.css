@@ -20,3 +20,60 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.action-btn {
+    width: 80px; 
+    text-align: center;
+}
+
+.done-subtask-row {
+    background-color: #d4edda; 
+}
+
+.project-list {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+}
+
+.project-list .list-group-item {
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+    .project-list .list-group-item:hover {
+        background-color: #f1f1f1;
+    }
+
+.project-list .active {
+    background-color: rgba(173, 216, 230, 0.5);
+    color: white;
+}
+
+.project-list .project-link {
+    display: block;
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    text-align: center;
+}
+
+    .project-list .project-link:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+.alert-info {
+    text-align: center;
+}
+
+    .alert-info a {
+        text-decoration: none;
+        font-weight: bold;
+    }
+

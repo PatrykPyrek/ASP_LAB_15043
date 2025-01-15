@@ -21,12 +21,9 @@
                             <a class="nav-link" asp-controller="Project" asp-action="Index">Projects</a>
                         </li>
                     </ul>
-                    @if (Context.Session.GetInt32("UserId") != null)
-                    {
-                        <a asp-action="Logout" asp-controller="User" class="btn btn-primary">Logout</a>
-                    }
+                    <partial name="_LoginPartial" />
                 </div>
-            </div>
+
         </nav>
     </header>
     <div class="container">

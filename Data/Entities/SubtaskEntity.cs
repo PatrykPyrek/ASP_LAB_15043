@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Entities
 {
-    [Table("Tasks")]
-    public class TaskEntity
+    [Table("Subtasks")]
+    public class SubtaskEntity
     {
         [Key]
         public int Id { get; set; }
@@ -19,10 +19,8 @@ namespace Data.Entities
         [Required]
         public string Status { get; set; }
 
-        [ForeignKey("Project")]
-        public int ProjectId { get; set; }
-        public ProjectEntity Project { get; set; }
-
-        public ICollection<SubtaskEntity> Subtasks { get; set; } = new List<SubtaskEntity>();
+        [ForeignKey("Task")]
+        public int TaskId { get; set; } 
+        public TaskEntity Task { get; set; }
     }
 }

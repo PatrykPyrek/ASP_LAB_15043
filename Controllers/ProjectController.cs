@@ -2,24 +2,34 @@
 using Data;
 using Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace Task_Manager.Controllers
 {
     public class ProjectController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<IdentityUser> _userManager;
 
-        public ProjectController(ApplicationDbContext context)
+        public ProjectController(ApplicationDbContext context, UserManager<IdentityUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
+
 
         [HttpGet]
         public IActionResult Index()
         {
+            // var userId = _userManager.GetUserId(User); 
+            // var projects = _context.Projects.Where(p => p.UserId == userId).ToList(); 
+
             var projects = _context.Projects.ToList();
+
             return View(projects);
         }
+
+
 
         [HttpGet]
         public IActionResult Create()
@@ -30,7 +40,7 @@ namespace Task_Manager.Controllers
         [HttpPost]
         public IActionResult Create(string name, string description)
         {
-            var userId = HttpContext.Session.GetInt32("UserId");
+            var userId = _userManager.GetUserId(User);
             if (userId == null)
             {
                 return Unauthorized();
@@ -40,11 +50,14 @@ namespace Task_Manager.Controllers
             {
                 Name = name,
                 Description = description,
-                UserId = userId.Value
+                UserId = userId 
             });
+
             _context.SaveChanges();
+
             return RedirectToAction("Index");
         }
+
 
         [HttpGet]
         public IActionResult Details(int id)
@@ -87,7 +100,7 @@ namespace Task_Manager.Controllers
             project.Description = description;
 
             _context.SaveChanges();
-            return RedirectToAction("Details", new { id = project.Id });
+            return RedirectToAction("Details", new { taskId = project.Id });
         }
 
 

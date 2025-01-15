@@ -1,65 +1,73 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Data;
-using Data.Entities;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
-namespace Task_Manager.Controllers
+public class UserController : Controller
 {
-    public class UserController : Controller
+    private readonly UserManager<IdentityUser> _userManager;
+    private readonly SignInManager<IdentityUser> _signInManager;
+
+    public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
     {
-        private readonly ApplicationDbContext _context;
+        _userManager = userManager;
+        _signInManager = signInManager;
+    }
 
-        public UserController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
+    [HttpGet]
+    public IActionResult Register()
+    {
+        return View();
+    }
 
-        [HttpGet]
-        public IActionResult Register()
+    [HttpPost]
+    public async Task<IActionResult> Register(string email, string password, string confirmPassword)
+    {
+        if (password != confirmPassword)
         {
+            ModelState.AddModelError(string.Empty, "Passwords do not match.");
             return View();
         }
 
-        [HttpPost]
-        public IActionResult Register(string email, string password)
+        var user = new IdentityUser { UserName = email, Email = email };
+        var result = await _userManager.CreateAsync(user, password);
+
+        if (result.Succeeded)
         {
-            if (_context.Users.Any(u => u.Email == email))
-            {
-                ViewBag.Error = "Email already exists.";
-                return View();
-            }
-
-            _context.Users.Add(new UserEntity { Email = email, Password = password });
-            _context.SaveChanges();
-
-            return RedirectToAction("Login");
-        }
-
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult Login(string email, string password)
-        {
-            var user = _context.Users.FirstOrDefault(u => u.Email == email && u.Password == password);
-            if (user == null)
-            {
-                ViewBag.Error = "Invalid email or password.";
-                return View();
-            }
-
-            HttpContext.Session.SetInt32("UserId", user.Id);
+            await _signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToAction("Index", "Project");
         }
 
-        [HttpGet]
-        public IActionResult Logout()
+        foreach (var error in result.Errors)
         {
-            HttpContext.Session.Clear();
-            return RedirectToAction("Login");
+            ModelState.AddModelError(string.Empty, error.Description);
         }
+
+        return View();
+    }
+
+    [HttpGet]
+    public IActionResult Login()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Login(string email, string password)
+    {
+        var result = await _signInManager.PasswordSignInAsync(email, password, isPersistent: false, lockoutOnFailure: false);
+        if (result.Succeeded)
+        {
+            return RedirectToAction("Index", "Project");
+        }
+
+        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+        return View();
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Logout()
+    {
+        await _signInManager.SignOutAsync();
+        return RedirectToAction("Login", "User");
     }
 }
