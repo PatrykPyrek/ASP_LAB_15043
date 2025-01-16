@@ -1,5 +1,5 @@
 ﻿@Task_Manager_HostAddress = https://localhost:7206
 
-GET {{Task_Manager_HostAddress}}/api/tasksapi
+GET {{Task_Manager_HostAddress}}/api/projectapi
 
 ###

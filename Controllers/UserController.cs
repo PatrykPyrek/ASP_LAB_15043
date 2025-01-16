@@ -20,6 +20,7 @@ public class UserController : Controller
     }
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     public async Task<IActionResult> Register(string email, string password, string confirmPassword)
     {
         if (password != confirmPassword)
@@ -32,7 +33,9 @@ public class UserController : Controller
         var result = await _userManager.CreateAsync(user, password);
 
         if (result.Succeeded)
-        {
+        { 
+            await _userManager.AddToRoleAsync(user, "user");
+
             await _signInManager.SignInAsync(user, isPersistent: false);
             return RedirectToAction("Index", "Project");
         }
@@ -44,6 +47,7 @@ public class UserController : Controller
 
         return View();
     }
+
 
     [HttpGet]
     public IActionResult Login()
@@ -67,7 +71,8 @@ public class UserController : Controller
     [HttpPost]
     public async Task<IActionResult> Logout()
     {
-        await _signInManager.SignOutAsync();
-        return RedirectToAction("Login", "User");
+        await _signInManager.SignOutAsync(); 
+        return RedirectToAction("Login", "User"); 
     }
+
 }

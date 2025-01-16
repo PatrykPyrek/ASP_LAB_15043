@@ -28,8 +28,10 @@
     </div>
 
     <div class="col-md-4">
-        @await Html.PartialAsync("_ProjectListPartial", projects)
+        @await Html.PartialAsync("_ProjectListPartial", (IEnumerable<Data.Entities.ProjectEntity>)ViewBag.Projects)
     </div>
+
+
 </div>
 
 <a asp-action="Create" asp-controller="Task" asp-route-projectId="@Model.Id" class="btn btn-primary">Add Task</a>

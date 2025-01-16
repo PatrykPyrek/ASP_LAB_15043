@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Data;
 using Data.Entities;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Task_Manager.Controllers
 {
+    [Authorize]
     public class ProjectController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -17,14 +18,23 @@ namespace Task_Manager.Controllers
             _userManager = userManager;
         }
 
+        public IActionResult UserProjects()
+        {
+            var userId = _userManager.GetUserId(User); 
+            var userProjects = _context.Projects.Where(p => p.UserId == userId).ToList(); 
+
+            return PartialView("_ProjectListPartial", userProjects); 
+        }
 
         [HttpGet]
         public IActionResult Index()
         {
-            // var userId = _userManager.GetUserId(User); 
-            // var projects = _context.Projects.Where(p => p.UserId == userId).ToList(); 
+            var userId = _userManager.GetUserId(User);
 
-            var projects = _context.Projects.ToList();
+ 
+            var projects = User.IsInRole("admin")
+                ? _context.Projects.ToList() 
+                : _context.Projects.Where(p => p.UserId == userId).ToList(); 
 
             return View(projects);
         }
@@ -62,19 +72,24 @@ namespace Task_Manager.Controllers
         [HttpGet]
         public IActionResult Details(int id)
         {
-            var project = _context.Projects.FirstOrDefault(p => p.Id == id);
+            var userId = _userManager.GetUserId(User);
+
+            var project = _context.Projects.FirstOrDefault(p => p.Id == id && p.UserId == userId);
             if (project == null)
+            {
                 return NotFound();
+            }
 
             var tasks = _context.Tasks.Where(t => t.ProjectId == id).ToList();
             ViewBag.Tasks = tasks;
 
-            var projects = _context.Projects.ToList();
-            ViewBag.Projects = projects; 
-            ViewBag.CurrentProjectId = id; 
+            var projects = _context.Projects.Where(p => p.UserId == userId).ToList();
+            ViewBag.Projects = projects;
 
-            return View(project); 
+            return View(project);
         }
+
+
 
 
 
@@ -100,7 +115,7 @@ namespace Task_Manager.Controllers
             project.Description = description;
 
             _context.SaveChanges();
-            return RedirectToAction("Details", new { taskId = project.Id });
+            return RedirectToAction("Details", new { project.Id });
         }
 
 

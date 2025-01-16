@@ -2,7 +2,65 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container text-center mt-5">
+    <div class="welcome-section">
+        <h1 class="display-4">Hello, Welcome to Project Manager!</h1>
+        <p class="lead">Manage your projects effectively by creating tasks, organizing subtasks, and collaborating with your team.</p>
+        <hr class="my-4">
+        <p>
+            Explore your projects and get started today. Stay organized and increase your productivity!
+        </p>
+        <a class="btn btn-primary btn-lg" asp-controller="Project" asp-action="Index">Go to Projects</a>
+    </div>
 </div>
+
+
+<style>
+    body {
+        background-color: #f8f9fa;
+        font-family: Arial, sans-serif;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .welcome-section {
+        padding: 40px;
+        border-radius: 10px;
+        background-color: #e9ecef;
+    }
+
+    .display-4 {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #343a40;
+    }
+
+    .lead {
+        font-size: 1.25rem;
+        color: #6c757d;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        font-size: 1.2rem;
+        padding: 10px 20px;
+        border-radius: 5px;
+    }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+
+    hr {
+        border: 1px solid #dee2e6;
+    }
+</style>

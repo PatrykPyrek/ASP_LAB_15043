@@ -12,47 +12,47 @@ namespace Task_Manager.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TasksAPIController : ControllerBase
+    public class ProjectAPIController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public TasksAPIController(ApplicationDbContext context)
+        public ProjectAPIController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/TasksAPI
+        // GET: api/ProjectAPI
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TaskEntity>>> GetTasks()
+        public async Task<ActionResult<IEnumerable<ProjectEntity>>> GetProjects()
         {
-            return await _context.Tasks.ToListAsync();
+            return await _context.Projects.ToListAsync();
         }
 
-        // GET: api/TasksAPI/5
+        // GET: api/ProjectAPI/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<TaskEntity>> GetTaskEntity(int id)
+        public async Task<ActionResult<ProjectEntity>> GetProjectEntity(int id)
         {
-            var taskEntity = await _context.Tasks.FindAsync(id);
+            var projectEntity = await _context.Projects.FindAsync(id);
 
-            if (taskEntity == null)
+            if (projectEntity == null)
             {
                 return NotFound();
             }
 
-            return taskEntity;
+            return projectEntity;
         }
 
-        // PUT: api/TasksAPI/5
+        // PUT: api/ProjectAPI/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTaskEntity(int id, TaskEntity taskEntity)
+        public async Task<IActionResult> PutProjectEntity(int id, ProjectEntity projectEntity)
         {
-            if (id != taskEntity.Id)
+            if (id != projectEntity.Id)
             {
                 return BadRequest();
             }
 
-            _context.Entry(taskEntity).State = EntityState.Modified;
+            _context.Entry(projectEntity).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace Task_Manager.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TaskEntityExists(id))
+                if (!ProjectEntityExists(id))
                 {
                     return NotFound();
                 }
@@ -73,36 +73,36 @@ namespace Task_Manager.Controllers
             return NoContent();
         }
 
-        // POST: api/TasksAPI
+        // POST: api/ProjectAPI
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<TaskEntity>> PostTaskEntity(TaskEntity taskEntity)
+        public async Task<ActionResult<ProjectEntity>> PostProjectEntity(ProjectEntity projectEntity)
         {
-            _context.Tasks.Add(taskEntity);
+            _context.Projects.Add(projectEntity);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTaskEntity", new { taskId = taskEntity.Id }, taskEntity);
+            return CreatedAtAction("GetProjectEntity", new { id = projectEntity.Id }, projectEntity);
         }
 
-        // DELETE: api/TasksAPI/5
+        // DELETE: api/ProjectAPI/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteTaskEntity(int id)
+        public async Task<IActionResult> DeleteProjectEntity(int id)
         {
-            var taskEntity = await _context.Tasks.FindAsync(id);
-            if (taskEntity == null)
+            var projectEntity = await _context.Projects.FindAsync(id);
+            if (projectEntity == null)
             {
                 return NotFound();
             }
 
-            _context.Tasks.Remove(taskEntity);
+            _context.Projects.Remove(projectEntity);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool TaskEntityExists(int id)
+        private bool ProjectEntityExists(int id)
         {
-            return _context.Tasks.Any(e => e.Id == id);
+            return _context.Projects.Any(e => e.Id == id);
         }
     }
 }

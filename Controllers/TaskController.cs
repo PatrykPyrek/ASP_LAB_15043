@@ -76,7 +76,7 @@ namespace Task_Manager.Controllers
                 task.Status = model.Status;
                 _context.SaveChanges();
             }
-            return RedirectToAction("Details", "Project", new { taskId = model.ProjectId });
+            return RedirectToAction("Details", "Project", new { id = model.ProjectId });
         }
 
 
@@ -91,7 +91,7 @@ namespace Task_Manager.Controllers
                 _context.Tasks.Remove(task);
                 _context.SaveChanges();
 
-                return RedirectToAction("Details", "Project", new { taskId = projectId });
+                return RedirectToAction("Details", "Project", new { ProjectId = projectId });
             }
 
             return NotFound();
@@ -136,10 +136,10 @@ public IActionResult Details(int id)
         .ToList();
 
     ViewBag.Subtasks = subtasks;
-    ViewBag.ProjectId = project.Id; // Pass the project ID to the view
+    ViewBag.ProjectId = project.Id; 
     ViewBag.TaskId = id;
 
-    return View(task); // Pass the task model to the view
+    return View(task); 
 }
 
 

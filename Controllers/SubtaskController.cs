@@ -53,7 +53,7 @@ namespace Task_Manager.Controllers
             _context.Subtasks.Add(subtask);
             _context.SaveChanges();
 
-            return RedirectToAction("Details", "Subtask", new { taskId = taskId });
+            return RedirectToAction("Details", "Subtask", new { taskId });
         }
 
         [HttpGet]
@@ -77,7 +77,7 @@ namespace Task_Manager.Controllers
                 subtask.Status = status;
                 _context.SaveChanges();
             }
-            return RedirectToAction("Details", "Subtask", new { taskId = subtask.TaskId });
+            return RedirectToAction("Details", "Subtask", new { subtask.TaskId });
         }
 
         [HttpPost]
