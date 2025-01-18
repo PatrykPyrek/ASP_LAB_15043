@@ -74,7 +74,10 @@ namespace Task_Manager.Controllers
         {
             var userId = _userManager.GetUserId(User);
 
-            var project = _context.Projects.FirstOrDefault(p => p.Id == id && p.UserId == userId);
+            var project = User.IsInRole("admin")
+                ? _context.Projects.FirstOrDefault(p => p.Id == id)
+                : _context.Projects.FirstOrDefault(p => p.Id == id && p.UserId == userId);
+
             if (project == null)
             {
                 return NotFound();
@@ -83,11 +86,14 @@ namespace Task_Manager.Controllers
             var tasks = _context.Tasks.Where(t => t.ProjectId == id).ToList();
             ViewBag.Tasks = tasks;
 
-            var projects = _context.Projects.Where(p => p.UserId == userId).ToList();
+            var projects = User.IsInRole("admin")
+                ? _context.Projects.ToList()
+                : _context.Projects.Where(p => p.UserId == userId).ToList();
             ViewBag.Projects = projects;
 
             return View(project);
         }
+
 
 
 
