@@ -21,16 +21,6 @@
 //    }
 //}
 
-
-
-
-
-
-
-
-
-
-
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -47,7 +37,13 @@ namespace Data
         public DbSet<TaskEntity> Tasks { get; set; }
         public DbSet<SubtaskEntity> Subtasks { get; set; }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
+        {
+
+            optionsBuilder.ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning));
+
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

@@ -228,8 +228,8 @@ namespace Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "38690a4b-aef8-4a45-a1cb-0522b005ae56", "38690a4b-aef8-4a45-a1cb-0522b005ae56", "user", "USER" },
-                    { "63f047e6-f12d-426d-abb1-99af79ae4bfb", "63f047e6-f12d-426d-abb1-99af79ae4bfb", "admin", "ADMIN" }
+                    { "c06c6c99-e6ab-4246-bf60-15c22f9e172c", "c06c6c99-e6ab-4246-bf60-15c22f9e172c", "admin", "ADMIN" },
+                    { "ece85665-1155-4a7f-8948-107dd35a15a2", "ece85665-1155-4a7f-8948-107dd35a15a2", "user", "USER" }
                 });
 
             migrationBuilder.InsertData(
@@ -237,8 +237,8 @@ namespace Data.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "2247de39-6022-4bb1-8219-8e90e0a46a66", 0, "c871347e-4e10-4da7-a066-f3cf1054e27a", "admin@example.com", true, false, null, "ADMIN@EXAMPLE.COM", "ADMIN@EXAMPLE.COM", "AQAAAAIAAYagAAAAEGM3XS44aquki9iFXvyluSk35mu1cqZtxAK+vuyQ8tMlGMaaQJDNkEzuNcaCspNrpw==", null, false, "4d578973-9cde-475a-930e-3d3a28225e40", false, "admin@example.com" },
-                    { "d5d4ed6b-b913-4e42-aed7-46bdadd4816c", 0, "abd47cd5-677f-4ba2-ac0d-b8477ffebf2d", "user@example.com", true, false, null, "USER@EXAMPLE.COM", "USER@EXAMPLE.COM", "AQAAAAIAAYagAAAAEEzKRC+isDPwBbxNOUgfzd4woQmlO/a319eNmhdxXjPVyIAJZdSwcfCi2NS8RajWcg==", null, false, "b1f6403e-b7c4-4ede-a0db-5e7b629c9afa", false, "user@example.com" }
+                    { "5aed4c51-2ce2-4186-af91-090ca57b4de0", 0, "348d5c6b-077b-4363-835f-bc4bf5165f48", "admin@example.com", true, false, null, "ADMIN@EXAMPLE.COM", "ADMIN@EXAMPLE.COM", "AQAAAAIAAYagAAAAEPvfz3l2Mh9uMzQHuRKN95YzZ+FPclaiYq2NbzXUTTbeV/5A2GkeO/OtnppEW3QXmQ==", null, false, "045e023b-6fa4-4a77-9e02-503b9e22da27", false, "admin@example.com" },
+                    { "8bb9f540-54c2-4adc-9258-3d480edf68ff", 0, "01e6ba33-9970-4c6d-a306-b60ec046ff64", "user@example.com", true, false, null, "USER@EXAMPLE.COM", "USER@EXAMPLE.COM", "AQAAAAIAAYagAAAAEAJDS0lW2GBQ5xbkDyNEP6z58CRZu7zqfGroCdVi+Q2x/RLf026M4oI2mJuFxRp0aQ==", null, false, "35934da4-3bd0-40cd-8e52-f72f1c914f97", false, "user@example.com" }
                 });
 
             migrationBuilder.InsertData(
@@ -246,8 +246,8 @@ namespace Data.Migrations
                 columns: new[] { "RoleId", "UserId" },
                 values: new object[,]
                 {
-                    { "63f047e6-f12d-426d-abb1-99af79ae4bfb", "2247de39-6022-4bb1-8219-8e90e0a46a66" },
-                    { "38690a4b-aef8-4a45-a1cb-0522b005ae56", "d5d4ed6b-b913-4e42-aed7-46bdadd4816c" }
+                    { "c06c6c99-e6ab-4246-bf60-15c22f9e172c", "5aed4c51-2ce2-4186-af91-090ca57b4de0" },
+                    { "ece85665-1155-4a7f-8948-107dd35a15a2", "8bb9f540-54c2-4adc-9258-3d480edf68ff" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250117160631_InitialCreate")]
+    [Migration("20250118121654_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -134,15 +134,15 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "63f047e6-f12d-426d-abb1-99af79ae4bfb",
-                            ConcurrencyStamp = "63f047e6-f12d-426d-abb1-99af79ae4bfb",
+                            Id = "c06c6c99-e6ab-4246-bf60-15c22f9e172c",
+                            ConcurrencyStamp = "c06c6c99-e6ab-4246-bf60-15c22f9e172c",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "38690a4b-aef8-4a45-a1cb-0522b005ae56",
-                            ConcurrencyStamp = "38690a4b-aef8-4a45-a1cb-0522b005ae56",
+                            Id = "ece85665-1155-4a7f-8948-107dd35a15a2",
+                            ConcurrencyStamp = "ece85665-1155-4a7f-8948-107dd35a15a2",
                             Name = "user",
                             NormalizedName = "USER"
                         });
@@ -237,33 +237,33 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2247de39-6022-4bb1-8219-8e90e0a46a66",
+                            Id = "5aed4c51-2ce2-4186-af91-090ca57b4de0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c871347e-4e10-4da7-a066-f3cf1054e27a",
+                            ConcurrencyStamp = "348d5c6b-077b-4363-835f-bc4bf5165f48",
                             Email = "admin@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@EXAMPLE.COM",
                             NormalizedUserName = "ADMIN@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGM3XS44aquki9iFXvyluSk35mu1cqZtxAK+vuyQ8tMlGMaaQJDNkEzuNcaCspNrpw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPvfz3l2Mh9uMzQHuRKN95YzZ+FPclaiYq2NbzXUTTbeV/5A2GkeO/OtnppEW3QXmQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4d578973-9cde-475a-930e-3d3a28225e40",
+                            SecurityStamp = "045e023b-6fa4-4a77-9e02-503b9e22da27",
                             TwoFactorEnabled = false,
                             UserName = "admin@example.com"
                         },
                         new
                         {
-                            Id = "d5d4ed6b-b913-4e42-aed7-46bdadd4816c",
+                            Id = "8bb9f540-54c2-4adc-9258-3d480edf68ff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "abd47cd5-677f-4ba2-ac0d-b8477ffebf2d",
+                            ConcurrencyStamp = "01e6ba33-9970-4c6d-a306-b60ec046ff64",
                             Email = "user@example.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "USER@EXAMPLE.COM",
                             NormalizedUserName = "USER@EXAMPLE.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEzKRC+isDPwBbxNOUgfzd4woQmlO/a319eNmhdxXjPVyIAJZdSwcfCi2NS8RajWcg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAJDS0lW2GBQ5xbkDyNEP6z58CRZu7zqfGroCdVi+Q2x/RLf026M4oI2mJuFxRp0aQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b1f6403e-b7c4-4ede-a0db-5e7b629c9afa",
+                            SecurityStamp = "35934da4-3bd0-40cd-8e52-f72f1c914f97",
                             TwoFactorEnabled = false,
                             UserName = "user@example.com"
                         });
@@ -331,13 +331,13 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "2247de39-6022-4bb1-8219-8e90e0a46a66",
-                            RoleId = "63f047e6-f12d-426d-abb1-99af79ae4bfb"
+                            UserId = "5aed4c51-2ce2-4186-af91-090ca57b4de0",
+                            RoleId = "c06c6c99-e6ab-4246-bf60-15c22f9e172c"
                         },
                         new
                         {
-                            UserId = "d5d4ed6b-b913-4e42-aed7-46bdadd4816c",
-                            RoleId = "38690a4b-aef8-4a45-a1cb-0522b005ae56"
+                            UserId = "8bb9f540-54c2-4adc-9258-3d480edf68ff",
+                            RoleId = "ece85665-1155-4a7f-8948-107dd35a15a2"
                         });
                 });
 
